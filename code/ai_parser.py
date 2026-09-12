@@ -3,6 +3,10 @@ import base64
 import os
 import re
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 try:
     from openai import OpenAI
 except ImportError:
@@ -239,5 +243,5 @@ class AIParser:
         return None
 
 if __name__ == '__main__':
-    parser = AIParser(api_key="dummy_key")
+    parser = AIParser()
     print("AIParser initialized.")
