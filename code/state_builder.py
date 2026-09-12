@@ -29,10 +29,13 @@ class StateBuilder:
     def apply_message_amendments(self, events, user_id, request_date):
         """
         Applies message effects to events based on AI parsing.
+        Returns (events, salary_override) where salary_override is the
+        confirmed future salary amount from the latest message, or None.
         """
+        salary_override = None
         user_msgs = self.dl.messages[self.dl.messages['user_id'] == user_id]
         if user_msgs.empty:
-            return events
+            return events, salary_override
             
         user_msgs = user_msgs.sort_values(by='sent_at')
         
@@ -64,16 +67,18 @@ class StateBuilder:
                     events.at[related_id, 'amount'] = amt
             else:
                 # General message (e.g., salary change)
-                if action == 'salary_change' and amt is not None and eff_dt is not None:
-                    eff_date_parsed = pd.to_datetime(eff_dt)
-                    # Find future salary events and update them
-                    # Assuming category='salary' or similar description
-                    mask = (events['category'] == 'salary') | (events['description'].str.contains(r'\bsalary\b|\bpayroll\b', case=False, na=False, regex=True))
+                if action == 'salary_change' and amt is not None and conf == 'confirmed':
+                    salary_override = amt
+                    # Also update any future salary events in the data
+                    if eff_dt is not None:
+                        eff_date_parsed = pd.to_datetime(eff_dt)
+                    else:
+                        eff_date_parsed = msg_date
+                    mask = (events['category'] == 'salary')
                     mask = mask & (events['event_date'] >= eff_date_parsed)
-                    if conf == 'confirmed':
-                        events.loc[mask, 'amount'] = amt
+                    events.loc[mask, 'amount'] = amt
                     
-        return events
+        return events, salary_override
 
     def resolve_conflicts(self, events):
         """
@@ -216,7 +221,7 @@ class StateBuilder:
         events = self.fill_missing_amounts_from_images(events)
         
         # 2. Apply messages up to request_date
-        events = self.apply_message_amendments(events, user_id, request_date)
+        events, salary_override = self.apply_message_amendments(events, user_id, request_date)
         
         # Resolve conflicts globally first
         resolved_events = self.resolve_conflicts(events)
@@ -244,6 +249,12 @@ class StateBuilder:
         # Detect patterns from past + valid future
         valid_all = pd.concat([valid_past, valid_future]) if not valid_future.empty else valid_past
         patterns = self.detect_recurring_patterns(valid_all)
+        
+        # Apply salary override from messages to recurring salary patterns
+        if salary_override is not None:
+            for p in patterns:
+                if p['category'] == 'salary' and p['direction'] == 'credit':
+                    p['amount'] = salary_override
         
         # Annotate patterns with profile-based flags
         annotated_patterns = []
