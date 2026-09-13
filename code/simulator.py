@@ -55,13 +55,10 @@ class Simulator:
             if base_id in spending_changes["reduce_to"]:
                 amount = float(spending_changes["reduce_to"][base_id])
                 
-            if pattern['currency'] != home_currency:
-                amount *= self.dl.get_exchange_rate(request_date_str, pattern['currency'], home_currency)
-                
             cadence = pattern['cadence']
             last_date = pd.to_datetime(pattern['last_date'])
-            
             next_date = last_date
+            
             while next_date <= end_date:
                 if cadence == 'monthly':
                     next_date += relativedelta(months=1)
@@ -81,14 +78,17 @@ class Simulator:
                     break
                     
                 if request_date <= next_date <= end_date:
+                    loop_amount = amount
+                    if pattern['currency'] != home_currency:
+                        loop_amount *= self.dl.get_exchange_rate(next_date.strftime("%Y-%m-%d"), pattern['currency'], home_currency)
                     timeline.append({
                         "date": next_date,
-                        "amount": amount,
+                        "amount": loop_amount,
                         "direction": pattern['direction']
                     })
                     
-        # Group timeline by date
-        timeline.sort(key=lambda x: x['date'])
+        # Sort: primary by date, secondary by direction (debits before credits) for conservative tracking
+        timeline.sort(key=lambda x: (x['date'], 0 if x['direction'] == 'debit' else 1))
         
         balance = current_balance
         lowest_balance = balance

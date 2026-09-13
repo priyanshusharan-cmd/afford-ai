@@ -5,6 +5,7 @@ import time
 
 from dotenv import load_dotenv
 from google import genai
+import openai
 from google.genai import types
 
 load_dotenv()
@@ -25,6 +26,8 @@ class AIParser:
 
     def __init__(self, api_key=None):
         self.api_key = api_key or os.environ.get("GEMINI_API_KEY")
+        self.openai_key = os.environ.get("OPENAI_API_KEY")
+
 
         self.model = os.environ.get(
             "GEMINI_MODEL",
@@ -46,6 +49,15 @@ class AIParser:
                 print(f"Warning: Could not initialize Gemini: {e}")
                 self.client = None
 
+                self.openai_key = os.environ.get("OPENAI_API_KEY")
+        self.openai_client = None
+        if self.openai_key:
+            try:
+                self.openai_client = openai.OpenAI(api_key=self.openai_key)
+                print("OpenAI fallback initialized: gpt-4o-mini")
+            except Exception as e:
+                print(f"Warning: Could not initialize OpenAI: {e}")
+        
         self.usage_stats = {
             "prompt_tokens": 0,
             "completion_tokens": 0,
@@ -277,6 +289,42 @@ Important:
 
             return result
 
+    class _DummyResponse:
+        def __init__(self, text):
+            self.text = text
+
+    def _call_openai(self, contents, system_instruction, max_output_tokens):
+        messages = []
+        if system_instruction:
+            messages.append({"role": "system", "content": system_instruction})
+        
+        user_content = []
+        if isinstance(contents, list):
+            for part in contents:
+                if hasattr(part, "mime_type") and part.mime_type.startswith("image/"):
+                    import base64
+                    b64 = base64.b64encode(part.data).decode('utf-8')
+                    user_content.append({"type": "image_url", "image_url": {"url": f"data:{part.mime_type};base64,{b64}"}})
+                elif isinstance(part, str):
+                    user_content.append({"type": "text", "text": part})
+        elif isinstance(contents, str):
+            user_content.append({"type": "text", "text": contents})
+            
+        messages.append({"role": "user", "content": user_content})
+        
+        response = self.openai_client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=messages,
+            max_tokens=max_output_tokens,
+            response_format={"type": "json_object"}
+        )
+        self.usage_stats["calls"] += 1
+        self.usage_stats["prompt_tokens"] += response.usage.prompt_tokens
+        self.usage_stats["completion_tokens"] += response.usage.completion_tokens
+        self.usage_stats["total_tokens"] += response.usage.total_tokens
+        
+        return self._DummyResponse(response.choices[0].message.content)
+
     def _call_with_retry(self, contents, system_instruction=None, max_output_tokens=300, max_retries=3):
         """Call Gemini with exponential backoff on 429 rate limit errors."""
         config = types.GenerateContentConfig(
@@ -296,10 +344,15 @@ Important:
                 self._update_usage(response)
                 return response
             except Exception as e:
-                if '429' in str(e) and attempt < max_retries - 1:
-                    wait = (attempt + 1) * 15
-                    print(f"Rate limited, waiting {wait}s...")
-                    time.sleep(wait)
+                if '429' in str(e) or 'quota' in str(e).lower():
+                    if getattr(self, "openai_client", None):
+                        try:
+                            return self._call_openai(contents, system_instruction, max_output_tokens)
+                        except Exception as oe:
+                            print(f"OpenAI fallback failed: {oe}")
+                    raise
+                if attempt < max_retries - 1:
+                    time.sleep(2)
                 else:
                     raise
 

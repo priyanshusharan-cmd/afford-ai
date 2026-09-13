@@ -136,7 +136,10 @@ class StateBuilder:
             placed = False
             for track in tracks:
                 diff = (row['event_date'] - track[-1]['event_date']).days
-                if 10 <= diff <= 40:
+                # Group events that match monthly salary cadence (25-35 days apart).
+                # Weekly/biweekly salaries have same description and are handled by groupby.
+                # Exclude bonuses/arrears/payslips (different gap) from the recurring salary track.
+                if 25 <= diff <= 35:
                     track.append(row)
                     placed = True
                     break
@@ -163,8 +166,9 @@ class StateBuilder:
                 
                 is_fixed = last_event['flexibility'] == 'fixed'
                 
-                # STRICT VARIANCE CHECK: Reject if diffs vary too much (interleaved distinct events)
-                if max(diffs) - min(diffs) > 5:
+                # VARIANCE CHECK: Reject if diffs vary too much (interleaved distinct events)
+                # Allow up to 10 days variance for monthly bills (some months differ by days)
+                if max(diffs) - min(diffs) > 10:
                     return
                     
                 avg_diff = sum(diffs) / len(diffs) if diffs else 0
@@ -177,7 +181,7 @@ class StateBuilder:
                 elif 80 <= avg_diff <= 100: cadence = 'quarterly'
                 elif 360 <= avg_diff <= 370: cadence = 'yearly'
                 if cadence:
-                    amount = last_event['amount'] if is_fixed else (g['amount'].median() if not g['amount'].empty else last_event['amount'])
+                    amount = last_event['amount'] if is_fixed else (g['amount'].max() if not g['amount'].empty else last_event['amount'])
                     patterns.append({
                         'event_id_base': last_event['event_id'],
                         'description': last_event['description'],
@@ -212,6 +216,7 @@ class StateBuilder:
         if profile_df.empty:
             return None
         profile = profile_df.iloc[0].to_dict()
+        current_balance = float(profile['current_available_balance'])
         
         # Get all events
         events = self.dl.events[(self.dl.events['user_id'] == user_id)].copy()
@@ -297,7 +302,7 @@ class StateBuilder:
             
         return {
             'profile': profile,
-            'current_balance': profile['current_available_balance'],
+            'current_balance': current_balance,
             'recurring_patterns': annotated_patterns,
             'scheduled_events': valid_future.to_dict(orient='records') if not valid_future.empty else [],
             'stoppable_future': stoppable_future
