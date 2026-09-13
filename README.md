@@ -1,8 +1,5 @@
 <h1 align="center">AffordAI</h1>
 
-[![Python Version](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 **Afford-AI** is an intelligent, AI-powered financial agent designed to answer a single, critical question: *"Can I safely afford this?"*
 
 Going beyond simple balance checks, Afford-AI reconstructs a user's financial state, forecasts 90-day cash flows, and evaluates recurring expenses, pending payments, payment options, and contextual messages/images to provide a personalized, safe, and actionable payment recommendation.
