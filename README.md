@@ -37,27 +37,43 @@ The agent operates through five core components to ensure deterministic, safe re
 
 ### 1. Installation
 
-Clone the repository and set up your environment:
+Clone the repository and navigate into it:
 
 ```bash
 git clone https://github.com/priyanshusharan-cmd/afford-ai.git
 cd afford-ai
+```
 
-# Set up and activate a virtual environment
+Set up and activate a virtual environment:
+
+**Mac / Linux:**
+```bash
 python3 -m venv venv2
 source venv2/bin/activate
+pip install -r requirements.txt
+```
 
-# Install dependencies
+**Windows:**
+```powershell
+python -m venv venv2
+venv2\Scripts\activate
 pip install -r requirements.txt
 ```
 
 ### 2. Configuration (Optional)
 
-To enable LLM parsing, export your API keys in the terminal or add them to a `.env` file:
+To enable LLM parsing, provide your API keys. You can add them to a `.env` file in the root directory, or export them directly in your terminal:
 
+**Mac / Linux:**
 ```bash
 export GEMINI_API_KEY="your_gemini_api_key_here"
 export OPENAI_API_KEY="your_openai_api_key_here"
+```
+
+**Windows (PowerShell):**
+```powershell
+$env:GEMINI_API_KEY="your_gemini_api_key_here"
+$env:OPENAI_API_KEY="your_openai_api_key_here"
 ```
 
 ### 3. Running the Agent
