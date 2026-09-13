@@ -1,0 +1,26 @@
+request_id,amount_safe_to_pay,affordability_status,recommended_payment_method,payment_plan,earliest_date_for_full_payment,spending_changes_needed,decision_explanation
+request_01,25256.0,affordable_now,full_payment,2024-03-03:25256,2024-03-03,none,Pay 25256.0 today. This keeps the 18000 minimum available over the next 90 days.
+request_02,19417269.66,affordable_with_plan,installments,2025-08-08:15952906.67|2025-09-07:15952906.67|2025-10-07:15952906.67,2025-08-16,none,Use installments to pay the amount over time. This leaves at least 29158400 available.
+request_03,1416281.43,affordable_later,wait,2019-10-16:5491000,2019-10-16,none,"Wait until 2019-10-16, then pay 5491000.0 in full. Paying sooner would put the 2668700 minimum at risk."
+request_04,12693000.0,affordable_now,full_payment,2024-06-04:12693000,2024-06-04,none,Pay 12693000.0 today. This keeps the 30686600 minimum available over the next 90 days.
+request_05,6763.55,not_affordable,not_recommended,none,,none,Do not make this payment. None of the available options keeps the 13100 minimum protected.
+request_06,620.4,affordable_now,full_payment,2026-01-03:620.40,2026-01-03,none,Pay 620.4 today. This keeps the 800 minimum available over the next 90 days.
+request_07,103080.99,affordable_with_plan,installments,2024-09-12:68432|2024-10-10:68432|2024-11-07:68432,2024-10-16,none,Use installments to pay the amount over time. This leaves at least 93000 available.
+request_08,432.57,affordable_later,wait,2025-02-16:996.60,2025-02-16,none,"Wait until 2025-02-16, then pay 996.6 in full. Paying sooner would put the 800 minimum at risk."
+request_09,166.61,affordable_now,full_payment,2026-07-04:166.61,2026-07-04,none,Pay 166.61 today. This keeps the 600 minimum available over the next 90 days.
+request_10,266700.0,not_affordable,not_recommended,none,,none,Do not make this payment. None of the available options keeps the 225400 minimum protected.
+request_11,13110000.0,affordable_now,full_payment,2025-05-03:13110000,2025-05-03,none,Pay 13110000.0 today. This keeps the 34140600 minimum available over the next 90 days.
+request_12,65164.0,affordable_with_plan,installments,2026-04-19:22590.19|2026-05-20:22590.19|2026-06-20:22590.19,2026-04-05,none,Use installments to pay the amount over time. This leaves at least 43200 available.
+request_13,941.6,affordable_now,full_payment,2024-03-07:941.60,2024-03-07,none,Pay 941.6 today. This keeps the 1300 minimum available over the next 90 days.
+request_14,0.0,not_affordable,not_recommended,none,,none,Do not make this payment. None of the available options keeps the 2200 minimum protected.
+request_15,204.64,not_affordable,not_recommended,none,,none,Do not make this payment. None of the available options keeps the 1200 minimum protected.
+request_16,122500.0,affordable_now,full_payment,2023-08-12:122500,2023-08-12,none,Pay 122500.0 today. This keeps the 122400 minimum available over the next 90 days.
+request_17,263197.11,affordable_with_plan,installments,2026-03-01:95194.67|2026-03-31:95194.67|2026-04-30:95194.67,2026-03-16,none,Use installments to pay the amount over time. This leaves at least 166100 available.
+request_18,585.65,affordable_later,wait,2026-08-16:3246.10,2026-08-16,none,"Wait until 2026-08-16, then pay 3246.1 in full. Paying sooner would put the 1400 minimum at risk."
+request_19,19808.75,affordable_with_plan,partial_payment,2024-09-04:19808.75|2024-09-16:19851.25,2024-09-16,none,Pay 19808.75 today and the remaining 19851.25 on 2024-09-16. This completes the full request and keeps the 92800 minimum protected.
+request_20,16900.19,not_affordable,not_recommended,none,,none,Do not make this payment. None of the available options keeps the 64500 minimum protected.
+request_21,1574.4,affordable_now,full_payment,2026-04-03:1574.40,2026-04-03,none,Pay 1574.4 today. This keeps the 1800 minimum available over the next 90 days.
+request_22,540.85,affordable_with_plan,installments,2024-12-08:253.59|2025-01-05:253.59|2025-02-02:253.59,2024-12-16,none,Use installments to pay the amount over time. This leaves at least 500 available.
+request_23,9085.43,affordable_later,wait,2025-06-16:38016,2025-06-16,none,"Wait until 2025-06-16, then pay 38016.0 in full. Paying sooner would put the 27000 minimum at risk."
+request_24,22029.25,not_affordable,not_recommended,none,,none,Do not make this payment. None of the available options keeps the 51000 minimum protected.
+request_25,2911803.96,not_affordable,not_recommended,none,,none,Do not make this payment. None of the available options keeps the 23379100 minimum protected.

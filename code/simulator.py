@@ -137,7 +137,7 @@ class Simulator:
         high = max_possible
         best_safe = 0.0
         
-        for _ in range(20): # 20 iterations is enough for 2 decimal places precision
+        for _ in range(50): # 50 iterations guarantees precision even for millions of IDR
             mid = (low + high) / 2
             is_safe, _ = self.simulate_90_days(state, request_date_str, [{"date": request_date_str, "amount": mid}])
             if is_safe:

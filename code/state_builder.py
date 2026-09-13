@@ -128,6 +128,11 @@ class StateBuilder:
             
         # Standardize salary descriptions using time-based tracks to support multiple incomes
         df = resolved_events.copy()
+        
+        # Exclude bonuses and commissions from recurring forecasts
+        mask = df['description'].str.contains('bonus|commission', case=False, na=False)
+        df = df[~mask].copy()
+        
         df['orig_description'] = df['description']
         
         salary_events = df[df['category'] == 'salary'].sort_values('event_date')
@@ -253,7 +258,19 @@ class StateBuilder:
             
         # Detect patterns from past + valid future
         valid_all = pd.concat([valid_past, valid_future]) if not valid_future.empty else valid_past
-        patterns = self.detect_recurring_patterns(valid_all)
+        raw_patterns = self.detect_recurring_patterns(valid_all)
+        
+        patterns = []
+        for p in raw_patterns:
+            if p['cadence'] == 'weekly': max_diff = 14
+            elif p['cadence'] == 'biweekly': max_diff = 21
+            elif p['cadence'] == 'monthly': max_diff = 45
+            elif p['cadence'] == 'quarterly': max_diff = 120
+            elif p['cadence'] == 'yearly': max_diff = 400
+            else: max_diff = 35
+            
+            if (request_date - pd.to_datetime(p['last_date'])).days <= max_diff:
+                patterns.append(p)
         
         # Apply salary override from messages to recurring salary patterns
         if salary_override is not None:
