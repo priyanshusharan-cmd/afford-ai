@@ -1,77 +1,109 @@
-# HackerRank Orchestrate: Buy or Wait?
+# 💸 Afford-AI: Financial Affordability Agent
 
-Build an AI-powered financial agent that decides whether a user can safely afford a requested expense.
+[![Python Version](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Approach Overview
+**Afford-AI** is an intelligent, AI-powered financial agent designed to answer a single, critical question: *"Can I safely afford this?"*
 
-This solution reconstructs a user's financial state to accurately forecast their future cash flow up to 90 days out. It then uses binary search to find the absolute maximum safe amount they can afford to pay without dipping below their required minimum balance.
+Going beyond simple balance checks, Afford-AI reconstructs a user's financial state, forecasts 90-day cash flows, and evaluates recurring expenses, pending payments, payment options, and contextual messages/images to provide a personalized, safe, and actionable payment recommendation.
 
-### Core Components:
-1. **DataLoader (`data_loader.py`)**: Loads the CSV tables (profiles, events, options, exchange rates, requests).
-2. **AIParser (`ai_parser.py`)**: 
-   - Uses the Gemini/OpenAI API (or a heuristic fallback when rate-limited) to extract missing amounts from images and parse message amendments.
-   - Updates the financial events with these critical details (e.g. rent increases, salary delays).
-3. **StateBuilder (`state_builder.py`)**: 
-   - Reconstructs the exact cash flow state on the `request_date`.
-   - Merges related/linked events, applies message amendments, and strictly separates fixed from variable flexible expenses.
-   - Uses a robust pattern detection algorithm to identify recurring events (salary, rent, groceries, subscriptions).
-   - Carefully excludes one-off fixed expenses and expired/dead patterns (using a dynamic time-decay threshold).
-4. **Simulator (`simulator.py`)**: 
-   - Projects the state forward 90 days.
-   - Calculates the exact `buffer` above the `minimum_balance_to_keep`.
-   - Uses a 50-iteration binary search to pinpoint the precise `amount_safe_to_pay` down to two decimal places (handles high-magnitude currencies like IDR perfectly).
-5. **DecisionEngine (`decision_engine.py`)**: 
-   - Takes the output of the simulator and generates viable payment plans (Wait, Partial, Installments, Full).
-   - Selects the most optimal plan based on user preferences and constraints (minimizing spending changes).
+---
 
-## Setup Instructions
+## 🌟 Key Features
+
+* **Advanced Financial State Reconstruction:** Accurately builds user cash flow profiles and tracks income and expenses using historical events, detecting patterns like rent and salary automatically.
+* **90-Day Predictive Cash Flow Simulation:** Projects finances up to 90 days out, ensuring user balances never fall below their required minimum threshold.
+* **Intelligent Payment Strategy Engine:** Decides between `full_payment`, `partial_payment`, `installments`, or `wait` based on user preferences and constraints.
+* **Multi-modal AI Parsing:** Leverages Gemini and OpenAI APIs to extract missing financial data from images and textual message amendments (with seamless regex fallback when rate-limited).
+* **High-Precision Binary Search Optimization:** Finds the absolute maximum safe amount (`amount_safe_to_pay`) a user can afford down to two decimal places, robust enough for high-magnitude currencies.
+
+---
+
+## 🧠 System Architecture
+
+The agent operates through five core components to ensure deterministic, safe recommendations:
+
+1. **DataLoader (`data_loader.py`)**: Ingests and structures CSV tables containing profiles, events, options, exchange rates, and requests.
+2. **AIParser (`ai_parser.py`)**: Processes images and messages to extract critical financial details (e.g., rent increases, missing transaction amounts) using LLMs.
+3. **StateBuilder (`state_builder.py`)**: Reconstructs the exact cash flow state on the `request_date`, categorizes expenses (fixed vs. variable), and detects recurring patterns while decaying obsolete ones.
+4. **Simulator (`simulator.py`)**: Simulates 90 days of future cash flows and uses binary search to pinpoint exact affordability margins.
+5. **DecisionEngine (`decision_engine.py`)**: Synthesizes the simulation data to select the optimal payment plan, minimizing required spending changes and maximizing user satisfaction.
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.9+
-- API Keys for Gemini or OpenAI (optional, the system falls back to heuristics if exhausted)
+
+* Python 3.9 or higher
+* *(Optional)* API Keys for Gemini or OpenAI for multi-modal parsing. The system gracefully falls back to heuristics if keys are omitted.
 
 ### 1. Installation
-First, clone the repository and navigate into the project directory:
+
+Clone the repository and set up your environment:
+
 ```bash
 git clone https://github.com/priyanshusharan-cmd/afford-ai.git
 cd afford-ai
-```
 
-Set up a virtual environment and install the required dependencies:
-```bash
+# Set up and activate a virtual environment
 python3 -m venv venv2
 source venv2/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
 ### 2. Configuration (Optional)
-If you wish to use the LLM parsing capabilities, export your API keys in the terminal (or place them in a `.env` file):
-```bash
-export GEMINI_API_KEY="your-gemini-key"
-export OPENAI_API_KEY="your-openai-key"
-```
-*(If no keys are provided or if rate limits are hit, the system seamlessly falls back to regex/heuristic parsing).*
 
-### 3. Running the System
-To evaluate the sample dataset (25 rows) and view accuracy:
+To enable LLM parsing, export your API keys in the terminal or add them to a `.env` file:
+
+```bash
+export GEMINI_API_KEY="your_gemini_api_key_here"
+export OPENAI_API_KEY="your_openai_api_key_here"
+```
+
+### 3. Running the Agent
+
+**Run in Sample Mode:** Evaluate a small 25-row subset and view the accuracy scores.
 ```bash
 python3 code/main.py --mode=sample
 python3 code/sample_scorer.py
 ```
 
-To run the full evaluation on all 250 requests (generates the final `output.csv` and `evaluation/usage_report.md`):
+**Run Full Evaluation:** Process all 250 requests to generate the final `output.csv` and the usage report.
 ```bash
 python3 code/main.py --mode=eval
 ```
-The final predictions will be saved as `output.csv` in the root directory.
+*Note: Final predictions are saved to `output.csv` in the root directory.*
 
 ---
 
-## Important File Locations
+## 📁 Repository Structure
 
 ```text
-dataset/        Input data and the blank output template.
-code/           Your solution code.
-output.csv      Final generated predictions in the repository root.
-solution/       Contains the final `code.zip` and `output.csv` ready for submission.
+├── dataset/             # Input CSV data, template output, and media files
+├── code/                # Core logic (DataLoader, AIParser, Simulator, etc.)
+├── evaluation/          # Token usage reports and run summaries
+├── solution/            # Packaged code.zip and output.csv for submission
+├── output.csv           # Generated predictions
+└── README.md            # This documentation
 ```
+
+---
+
+## 🎯 Evaluation Output Schema
+
+For every request, the system outputs the following in `output.csv`:
+
+* `amount_safe_to_pay`: Maximum amount the user can safely pay today.
+* `affordability_status`: `affordable_now`, `affordable_with_plan`, `affordable_later`, or `not_affordable`.
+* `recommended_payment_method`: Safest approach (`full_payment`, `partial_payment`, `installments`, `wait`, `not_recommended`).
+* `payment_plan`: Complete payment schedule.
+* `earliest_date_for_full_payment`: Earliest safe date for a single full payment.
+* `spending_changes_needed`: Any flexible expenses that must be reduced/stopped.
+* `decision_explanation`: A transparent explanation supporting the recommendation.
+
+---
+
+*Built for the HackerRank Orchestrate: Buy or Wait? Challenge.*
