@@ -249,3 +249,4 @@ request_272,6060855.82,affordable_with_plan,installments,2025-02-12:4709466.67|2
 request_273,10756514.78,affordable_with_plan,partial_payment,2026-04-07:10756514.78|2026-04-16:5104485.22,2026-04-16,none,Pay 10756514.78 today and the remaining 5104485.220000001 on 2026-04-16. This completes the full request and keeps the 18774600 minimum protected.
 request_274,2477.63,affordable_with_plan,installments,2024-12-04:940.75|2025-01-04:940.75|2025-02-04:940.75,2024-12-16,none,Use installments to pay the amount over time. This leaves at least 1800 available.
 request_275,15884000.0,affordable_now,full_payment,2025-05-06:15884000,2025-05-06,none,Pay 15884000.0 today. This keeps the 12760100 minimum available over the next 90 days.
+request_test_1,2000.0,affordable_now,full_payment,2026-09-14:2000,2026-09-14,none,Pay 2000.0 today. This keeps the 1000 minimum available over the next 90 days.

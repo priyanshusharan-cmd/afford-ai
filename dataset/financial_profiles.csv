@@ -274,3 +274,4 @@ user_272,IDR,16324524,7508600,education|family_support,housing|utilities|educati
 user_273,IDR,32146800,18774600,retirement_investment|emergency_savings,rent|utilities|groceries,dining|streaming,streaming|cloud_storage,partial_payment|installments,7
 user_274,EUR,4847.31,1800,emergency_savings|travel,rent|insurance|transport,streaming|shopping,streaming|cloud_storage,partial_payment|installments,4
 user_275,IDR,37206450,12760100,healthcare|family_support,rent|healthcare|family_support|groceries,shopping,cloud_storage,full_payment,
+user_test,USD,5000,1000,none,housing,dining,entertainment,full_payment,

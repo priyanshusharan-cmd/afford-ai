@@ -25341,3 +25341,4 @@ event_25339,user_275,expense,Vehicle charging,transport,debit,378457.9,IDR,2025-
 event_25340,user_275,expense,Fuel refill,transport,debit,387671.23,IDR,2025-04-30,2025-04-30,settled,,fixed,
 event_25341,user_275,expense,Purchase awaiting refund,shopping,debit,1444000,IDR,2025-04-12,2025-04-13,settled,,fixed,
 event_25342,user_275,refund,Pending merchant refund,shopping,credit,1444000,IDR,2025-05-03,2025-05-13,pending,event_25341,fixed,
+event_test_1,user_test,recurring_expense,Rent,housing,debit,1500,USD,2026-09-18,2026-09-18,scheduled,,essential,1500

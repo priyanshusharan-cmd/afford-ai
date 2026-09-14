@@ -249,3 +249,4 @@ request_272,user_272,2025-02-05,debt_repayment,13585000,2025-04-10,false,"I have
 request_273,user_273,2026-04-07,education,15861000,2026-06-15,true,"Should I pay for the course now, use installments, or wait? Enrolment for the course comes to IDR 15,861,000."
 request_274,user_274,2024-12-04,debt_repayment,2713.7,2025-02-11,false,"I want to put another EUR 2,713.70 toward my loan. I need to complete it by 11 February 2025. Would paying this much toward the loan leave enough for the rest of the month?"
 request_275,user_275,2025-05-06,emergency_expense,15884000,2025-07-22,false,"Should I pay for the repair in full, split the payment, or wait? I need to decide by 22 July 2025. I have an unexpected repair bill of IDR 15,884,000."
+request_test_1,user_test,2026-09-14,purchase,2000,2026-09-20,false,"I want to buy a new laptop for USD 2000"

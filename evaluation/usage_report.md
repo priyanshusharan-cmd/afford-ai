@@ -3,7 +3,7 @@
 ## Model Information
 
 - Provider: Google Gemini
-- Model: gemini-3.8-flash
+- Model: gemini-3.7-flash
 - Billing: Gemini API Free Tier
 
 ## Usage Summary
