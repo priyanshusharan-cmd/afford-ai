@@ -1,0 +1,5 @@
+pandas
+python-dateutil
+python-dotenv
+google-genai
+openai
