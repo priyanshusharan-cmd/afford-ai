@@ -1,44 +1,57 @@
-<h1 align="center">AffordAI</h1>
+<h1 align="center">AffordAI 💸</h1>
 
-**Afford-AI** is an intelligent, AI-powered financial agent designed to answer a single, critical question: *"Can I safely afford this?"*
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.9+-blue.svg" alt="Python 3.9+">
+  <img src="https://img.shields.io/badge/Status-Active-success.svg" alt="Status Active">
+  <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License MIT">
+  <img src="https://img.shields.io/badge/HackerRank-Orchestrate-orange.svg" alt="HackerRank Orchestrate">
+</p>
 
-Going beyond simple balance checks, Afford-AI reconstructs a user's financial state, forecasts 90-day cash flows, and evaluates recurring expenses, pending payments, payment options, and contextual messages/images to provide a personalized, safe, and actionable payment recommendation.
-
----
-
-## 🌟 Key Features
-
-* **Advanced Financial State Reconstruction:** Accurately builds user cash flow profiles and tracks income and expenses using historical events, detecting patterns like rent and salary automatically.
-* **90-Day Predictive Cash Flow Simulation:** Projects finances up to 90 days out, ensuring user balances never fall below their required minimum threshold.
-* **Intelligent Payment Strategy Engine:** Decides between `full_payment`, `partial_payment`, `installments`, or `wait` based on user preferences and constraints.
-* **Multi-modal AI Parsing:** Leverages Gemini and OpenAI APIs to extract missing financial data from images and textual message amendments (with seamless regex fallback when rate-limited).
-* **High-Precision Binary Search Optimization:** Finds the absolute maximum safe amount (`amount_safe_to_pay`) a user can afford down to two decimal places, robust enough for high-magnitude currencies.
+<p align="center">
+  <em>An intelligent, AI-powered financial agent designed to answer a single, critical question: <strong>"Can I safely afford this?"</strong></em>
+</p>
 
 ---
 
-## 🧠 System Architecture
+## 📖 Overview
 
-The agent operates through five core components to ensure deterministic, safe recommendations:
+**AffordAI** goes far beyond simple balance checks. It reconstructs a user's entire financial state, forecasts 90-day cash flows, and rigorously evaluates recurring expenses, pending payments, payment options, and contextual messages/images. By processing all of this, it provides a personalized, safe, and highly actionable payment recommendation. 
 
-1. **DataLoader (`data_loader.py`)**: Ingests and structures CSV tables containing profiles, events, options, exchange rates, and requests.
-2. **AIParser (`ai_parser.py`)**: Processes images and messages to extract critical financial details (e.g., rent increases, missing transaction amounts) using LLMs.
-3. **StateBuilder (`state_builder.py`)**: Reconstructs the exact cash flow state on the `request_date`, categorizes expenses (fixed vs. variable), and detects recurring patterns while decaying obsolete ones.
-4. **Simulator (`simulator.py`)**: Simulates 90 days of future cash flows and uses binary search to pinpoint exact affordability margins.
-5. **DecisionEngine (`decision_engine.py`)**: Synthesizes the simulation data to select the optimal payment plan, minimizing required spending changes and maximizing user satisfaction.
+Whether it's deciding between paying in full today, utilizing installment plans, or waiting for a safer financial period, **AffordAI** guarantees your balance never dips below your essential threshold.
+
+---
+
+## ✨ Core Features
+
+- 🔍 **Advanced Financial State Reconstruction:** Accurately builds user cash flow profiles and tracks income/expenses using historical events. Automatically detects patterns like rent and salary.
+- 📈 **90-Day Predictive Cash Flow Simulation:** Projects finances up to 90 days out, ensuring user balances never fall below their customized minimum required threshold.
+- 🧠 **Intelligent Payment Strategy Engine:** Decides intelligently between `full_payment`, `partial_payment`, `installments`, or `wait` based on real-time user constraints and market options.
+- 🤖 **Multi-modal AI Parsing:** Leverages powerful Gemini and OpenAI APIs to extract missing financial data from images and textual message amendments (with seamless regex fallbacks when rate-limited).
+- ⚡ **High-Precision Binary Search Optimization:** Pinpoints the absolute maximum safe amount (`amount_safe_to_pay`) a user can afford down to two decimal places—robust enough for high-magnitude currencies (like IDR).
+
+---
+
+## 🏗️ System Architecture
+
+The agent operates through five core robust components to ensure deterministic, safe, and lightning-fast recommendations:
+
+1. **`DataLoader`**: Ingests and structures CSV tables containing financial profiles, historical events, options, exchange rates, and user requests.
+2. **`AIParser`**: Processes contextual images and messages to extract critical financial details (e.g., rent increases, missing transaction amounts) using state-of-the-art LLMs.
+3. **`StateBuilder`**: Reconstructs the exact cash flow state on the `request_date`, categorizes expenses (fixed vs. variable), and detects recurring patterns while safely decaying obsolete ones.
+4. **`Simulator`**: Simulates 90 days of future cash flows and runs a binary search algorithm to pinpoint exact affordability margins.
+5. **`DecisionEngine`**: Synthesizes the simulation data to select the optimal payment plan, minimizing required spending changes while maximizing user satisfaction.
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-
 * Python 3.9 or higher
-* *(Optional)* API Keys for Gemini or OpenAI for multi-modal parsing. The system gracefully falls back to heuristics if keys are omitted.
+* *(Optional)* API Keys for Gemini or OpenAI for multi-modal parsing. The system gracefully falls back to deterministic heuristics if keys are omitted.
 
 ### 1. Installation
 
 Clone the repository and navigate into it:
-
 ```bash
 git clone https://github.com/priyanshusharan-cmd/afford-ai.git
 cd afford-ai
@@ -48,21 +61,21 @@ Set up and activate a virtual environment:
 
 **Mac / Linux:**
 ```bash
-python3 -m venv venv2
-source venv2/bin/activate
-pip install -r requirements.txt
+python3 -m venv venv
+source venv/bin/activate
+python3 -m pip install -r requirements.txt
 ```
 
 **Windows:**
 ```powershell
-python -m venv venv2
-venv2\Scripts\activate
-pip install -r requirements.txt
+python -m venv venv
+venv\Scripts\activate
+python -m pip install -r requirements.txt
 ```
 
 ### 2. Configuration (Optional)
 
-To enable LLM parsing, provide your API keys. You can add them to a `.env` file in the root directory, or export them directly in your terminal:
+To enable LLM parsing, provide your API keys by exporting them in your terminal:
 
 **Mac / Linux:**
 ```bash
@@ -78,13 +91,7 @@ $env:OPENAI_API_KEY="your_openai_api_key_here"
 
 ### 3. Running the Agent
 
-**Run in Sample Mode:** Evaluate a small 25-row subset and view the accuracy scores.
-```bash
-python3 code/main.py --mode=sample
-python3 code/sample_scorer.py
-```
-
-**Run Full Evaluation:** Process all 250 requests to generate the final `output.csv` and the usage report.
+**Run Full Evaluation:** Process all requests to generate the final `output.csv` and the usage report.
 ```bash
 python3 code/main.py --mode=eval
 ```
@@ -92,31 +99,32 @@ python3 code/main.py --mode=eval
 
 ---
 
-## 📁 Repository Structure
-
-```text
-├── dataset/             # Input CSV data, template output, and media files
-├── code/                # Core logic (DataLoader, AIParser, Simulator, etc.)
-├── evaluation/          # Token usage reports and run summaries
-├── solution/            # Packaged code.zip and output.csv for submission
-├── output.csv           # Generated predictions
-└── README.md            # This documentation
-```
-
----
-
 ## 🎯 Evaluation Output Schema
 
-For every request, the system outputs the following in `output.csv`:
+For every processed request, the system securely outputs the following parameters in `output.csv`:
 
-* `amount_safe_to_pay`: Maximum amount the user can safely pay today.
-* `affordability_status`: `affordable_now`, `affordable_with_plan`, `affordable_later`, or `not_affordable`.
-* `recommended_payment_method`: Safest approach (`full_payment`, `partial_payment`, `installments`, `wait`, `not_recommended`).
-* `payment_plan`: Complete payment schedule.
-* `earliest_date_for_full_payment`: Earliest safe date for a single full payment.
-* `spending_changes_needed`: Any flexible expenses that must be reduced/stopped.
-* `decision_explanation`: A transparent explanation supporting the recommendation.
+| Column | Description |
+| :--- | :--- |
+| `amount_safe_to_pay` | Maximum amount the user can safely pay today without risking minimum balances. |
+| `affordability_status` | Returns either `affordable_now`, `affordable_with_plan`, `affordable_later`, or `not_affordable`. |
+| `recommended_payment_method` | The safest recommended approach (`full_payment`, `partial_payment`, `installments`, `wait`, `not_recommended`). |
+| `payment_plan` | Complete chronological payment schedule to fulfill the request safely. |
+| `earliest_date_for_full_payment` | The earliest safe date for a single full payment. |
+| `spending_changes_needed` | Highlights any flexible expenses that must be safely reduced or stopped. |
+| `decision_explanation` | A fully transparent, human-readable explanation supporting the AI's mathematical recommendation. |
 
 ---
 
-*Built for the HackerRank Orchestrate: Buy or Wait? Challenge.*
+<br/>
+
+<div align="center">
+  <i>Built for the HackerRank Orchestrate: Buy or Wait? Challenge.</i>
+</div>
+
+<br/>
+
+<div align="center">
+  <a href="https://www.linkedin.com/in/priyanshusharan">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" width="40" height="40" alt="LinkedIn Profile"/>
+  </a>
+</div>
