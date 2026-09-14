@@ -1,8 +1,7 @@
-<h1 align="center">AffordAI 💸</h1>
+<h1 align="center">AffordAI</h1>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.9+-blue.svg" alt="Python 3.9+">
-  <img src="https://img.shields.io/badge/Status-Active-success.svg" alt="Status Active">
   <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="License MIT">
   <img src="https://img.shields.io/badge/HackerRank-Orchestrate-orange.svg" alt="HackerRank Orchestrate">
 </p>
