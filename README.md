@@ -97,7 +97,7 @@ Builds every candidate plan, keeps only those that survive the simulation and th
 ## 🧭 Decision logic
 
 ```mermaid
-flowchart LR
+flowchart TB
     REQ([request]) --> SAFE["amount_safe_to_pay<br/><i>binary search</i>"]
     SAFE --> A[full payment today]
     SAFE --> B[wait for earliest safe date]
