@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" height="420" role="img" aria-label="AffordAI — can I safely afford this?">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#04110C"/><stop offset="1" stop-color="#0A2219"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#34D399" stroke-opacity=".06"/>
+    </pattern>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FDE68A"/><stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".72" cy=".45" r=".5">
+      <stop offset="0" stop-color="#34D399" stop-opacity=".16"/><stop offset="1" stop-color="#34D399" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#34D399" stop-opacity=".32"/><stop offset="1" stop-color="#34D399" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="type"><rect x="122" y="246" height="40" width="0">
+      <animate attributeName="width" dur="9s" repeatCount="indefinite" calcMode="discrete"
+        values="0.0;16.9;33.8;50.7;67.6;84.5;101.4;118.3;135.2;152.1;169.0;185.9;202.8;219.7;236.6;253.5;270.4;287.3;304.2;321.1;338.0;354.9;371.8;388.7;405.6;422.5;422.49999999999994;0" keyTimes="0;0.066;0.082;0.098;0.114;0.13;0.146;0.162;0.178;0.194;0.21;0.226;0.242;0.258;0.274;0.29;0.306;0.322;0.338;0.354;0.37;0.386;0.402;0.418;0.434;0.45;0.92;1" fill="freeze"/>
+    </rect></clipPath>
+  </defs>
+  <rect width="1280" height="420" rx="22" fill="url(#bg)"/>
+  <rect width="1280" height="420" rx="22" fill="url(#grid)"/>
+  <rect width="1280" height="420" rx="22" fill="url(#glow)"/>
+
+  <!-- left: identity -->
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace">
+    <rect x="80" y="70" width="372" height="34" rx="17" fill="#34D399" fill-opacity=".08" stroke="#34D399" stroke-opacity=".35"/>
+    <circle cx="101" cy="87" r="5" fill="#34D399">
+      <animate attributeName="opacity" values="1;.25;1" dur="2s" repeatCount="indefinite"/>
+    </circle>
+    <text x="116" y="92" font-size="14" letter-spacing="2" fill="#A7F3D0">HACKERRANK ORCHESTRATE · 2026</text>
+  </g>
+  <text x="74" y="212" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="108" font-weight="800" letter-spacing="-3" fill="#ECFDF5">Afford<tspan fill="url(#gold)">AI</tspan></text>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="28">
+    <text x="84" y="274" fill="#FBBF24">&gt;</text>
+    <text x="122" y="274" fill="#A7F3D0" clip-path="url(#type)">can I safely afford this?</text>
+    <rect x="122" y="252" width="14" height="28" fill="#34D399">
+      <animate attributeName="x" dur="9s" repeatCount="indefinite" calcMode="discrete"
+        values="122.0;138.9;155.8;172.7;189.6;206.5;223.4;240.3;257.2;274.1;291.0;307.9;324.8;341.7;358.6;375.5;392.4;409.3;426.2;443.1;460.0;476.9;493.8;510.7;527.6;544.5;544.5;122" keyTimes="0;0.066;0.082;0.098;0.114;0.13;0.146;0.162;0.178;0.194;0.21;0.226;0.242;0.258;0.274;0.29;0.306;0.322;0.338;0.354;0.37;0.386;0.402;0.418;0.434;0.45;0.92;1"/>
+      <animate attributeName="opacity" values="1;0;1" dur="1s" repeatCount="indefinite" calcMode="discrete"/>
+    </rect>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif" font-size="18" fill="#8FA89E">
+    <text x="84" y="342">90-day cash-flow forecast <tspan fill="#4B6B5E">·</tspan> 5 currencies <tspan fill="#4B6B5E">·</tspan> 1 safe answer</text>
+  </g>
+
+  <!-- right: forecast panel -->
+  <rect x="660" y="50" width="580" height="320" rx="16" fill="#0B1F18" fill-opacity=".75" stroke="#14513C"/>
+  <text x="690" y="86" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="13" letter-spacing="2" fill="#6EE7B7">BALANCE FORECAST · NEXT 90 DAYS</text>
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.48;0.53;0.92;1" dur="8s" repeatCount="indefinite"/>
+    <rect x="1112" y="68" width="104" height="28" rx="14" fill="#34D399" fill-opacity=".14" stroke="#34D399" stroke-opacity=".6"/>
+    <path d="M1128 82l5 5 9-10" fill="none" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="1150" y="87" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="13" font-weight="700" letter-spacing="1.5" fill="#34D399">SAFE</text>
+  </g>
+
+  <g stroke="#34D399" stroke-opacity=".07">
+    <path d="M690 130H1210M690 180H1210M690 230H1210M690 280H1210"/>
+  </g>
+  <path d="M690 300H1210" stroke="#FBBF24" stroke-width="1.5" stroke-dasharray="6 6" opacity=".8">
+    <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.6s" repeatCount="indefinite"/>
+  </path>
+  <text x="1210" y="292" text-anchor="end" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="12" fill="#FBBF24" opacity=".9">your minimum balance</text>
+
+  <path d="M690,175 L735,190 L775,204 L790,142 L830,158 L870,174 L905,236 L945,248 L985,262 L1000,196 L1045,212 L1085,226 L1110,250 L1125,186 L1170,200 L1210,212 L1210,320 L690,320 Z" fill="url(#fill)" opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.15;0.5;0.92;1" dur="8s" repeatCount="indefinite"/>
+  </path>
+  <path d="M690,175 L735,190 L775,204 L790,142 L830,158 L870,174 L905,236 L945,248 L985,262 L1000,196 L1045,212 L1085,226 L1110,250 L1125,186 L1170,200 L1210,212" fill="none" stroke="#34D399" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"
+        stroke-dasharray="744" stroke-dashoffset="744">
+    <animate attributeName="stroke-dashoffset" values="744;0;0;744" keyTimes="0;0.5;0.92;1" dur="8s" repeatCount="indefinite"/>
+  </path>
+
+  <!-- purchase marker -->
+  <g opacity="0">
+    <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.209;0.239;0.92;1" dur="8s" repeatCount="indefinite"/>
+    <path d="M905 230V146" stroke="#FBBF24" stroke-opacity=".5" stroke-dasharray="3 4"/>
+    <rect x="845" y="118" width="122" height="28" rx="8" fill="#1A1405" stroke="#FBBF24" stroke-opacity=".6"/>
+    <text x="906" y="137" text-anchor="middle" font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="12" fill="#FDE68A">pay in full ↓</text>
+    <circle cx="905" cy="236" r="6" fill="#FBBF24"/>
+    <circle cx="905" cy="236" r="6" fill="none" stroke="#FBBF24" stroke-width="2">
+      <animate attributeName="r" values="6;18" dur="1.6s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values=".9;0" dur="1.6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <circle r="6" fill="#ECFDF5" stroke="#34D399" stroke-width="3">
+    <animateMotion dur="8s" repeatCount="indefinite" path="M690,175 L735,190 L775,204 L790,142 L830,158 L870,174 L905,236 L945,248 L985,262 L1000,196 L1045,212 L1085,226 L1110,250 L1125,186 L1170,200 L1210,212" keyPoints="0;1;1;1" keyTimes="0;0.5;0.92;1" calcMode="linear"/>
+    <animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.9;0.92;1" dur="8s" repeatCount="indefinite"/>
+  </circle>
+
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace" font-size="11" fill="#4B6B5E">
+    <text x="690" y="346">today</text><text x="863" y="346">day 30</text>
+    <text x="1037" y="346">day 60</text><text x="1210" y="346" text-anchor="end">day 90</text>
+  </g>
+</svg>
